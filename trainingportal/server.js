@@ -44,6 +44,7 @@ var badgeHtml = fs.readFileSync(path.join(__dirname, 'static/badge.html'),'utf8'
 
 //ssl goes here
 var https = require('https');
+const constants = require('crypto').constants;
 
 const cert = fs.readFileSync(path.join(__dirname, '/certificate.crt'),'utf8');
 const ca = fs.readFileSync(path.join(__dirname, '/ca_bundle.crt'),'utf8');
@@ -52,7 +53,34 @@ const key = fs.readFileSync(path.join(__dirname, '/private.key'),'utf8');
 let options = {
   cert: cert, // fs.readFileSync('./ssl/example.crt');
   ca: ca, // fs.readFileSync('./ssl/example.ca-bundle');
-  key: key // fs.readFileSync('./ssl/example.key');
+  key: key, // fs.readFileSync('./ssl/example.key');
+  requestCert: false,
+  rejectUnauthorized: false,
+  ciphers: [
+    'ECDHE-RSA-AES128-GCM-SHA256',
+    'ECDHE-ECDSA-AES128-GCM-SHA256',
+    'ECDHE-RSA-AES256-GCM-SHA384',
+    'ECDHE-ECDSA-AES256-GCM-SHA384',
+    'DHE-RSA-AES128-GCM-SHA256',
+    'ECDHE-RSA-AES128-SHA256',
+    'DHE-RSA-AES128-SHA256',
+    'ECDHE-RSA-AES256-SHA384',
+    'DHE-RSA-AES256-SHA384',
+    'ECDHE-RSA-AES256-SHA256',
+    'DHE-RSA-AES256-SHA256',
+    'HIGH',
+    '!aNULL',
+    '!eNULL',
+    '!EXPORT',
+    '!DES',
+    '!RC4',
+    '!MD5',
+    '!PSK',
+    '!SRP',
+    '!CAMELLIA'
+ ].join(':'),
+ honorCipherOrder: true,
+ secureOptions: constants.SSL_OP_NO_SSLv2 | constants.SSL_OP_NO_SSLv3 | constants.SSL_OP_NO_TLSv1 | constants.SSL_OP_NO_TLSv1_1
 };
 
 //INIT
