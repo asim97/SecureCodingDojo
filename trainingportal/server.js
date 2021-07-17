@@ -111,7 +111,15 @@ app.use('/public',express.static(path.join(__dirname, 'public')));
 app.use('/static', (req, res, next) => {
     var result = req.url.match(/challengeDefinitions.json/);
     if (result) {
-      return res.status(403).end('403 Forbidden');
+       res.send(forbidden_html);
+    }
+	var result = req.url.match(/sol.md/);
+    if (result) {
+      res.send(forbidden_html);
+    }
+	var result = req.url.match(/.json/);
+    if (result) {
+       res.send(forbidden_html);
     }
   next();
 });
@@ -368,9 +376,7 @@ app.get('/challenges/solutions/:challengeId', (req,res) => {
   );
 });
 
-app.get("/static/lesson/blackBelt/*", () =>{ 
-  res.send(forbidden_html);
-});
+
 
 app.get('/challenges/descriptions/:challengeId', (req,res) => {
   var challengeId = req.params.challengeId;
