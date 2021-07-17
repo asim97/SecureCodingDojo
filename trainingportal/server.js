@@ -368,7 +368,7 @@ app.get('/challenges/solutions/:challengeId', (req,res) => {
   );
 });
 
-app.get("/static/*", () =>{ 
+app.get("/static/lesson/blackBelt/*", () =>{ 
   res.send(forbidden_html);
 });
 
