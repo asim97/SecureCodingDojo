@@ -368,23 +368,8 @@ app.get('/challenges/solutions/:challengeId', (req,res) => {
   );
 });
 
-app.get("/static/lesson/blackBelt", (req,res) =>{ 
-  db.checkUserSolutionDisabled(req.user,
-    function(){
-      util.apiResponse(req, res, 500, "Failed to check if solutions are enabled for this user");
-    },async (results) =>{
-      //console.log(results[0]);
-      if(results[0].solution_disabled=="disabled"){
-        //console.log("here 1");
-        res.send(sol_disabled_html);
-        //util.apiResponse(req, res, 400, "Solutions are disabled for this student by his instructor");
-      }
-      else{
-        //console.log("here 2");
-        res.send(forbidden_html);
-      }
-    }
-  );
+app.get("/static/lesson/blackBelt", () =>{ 
+  res.send(forbidden_html);
 });
 
 app.get('/challenges/descriptions/:challengeId', (req,res) => {
