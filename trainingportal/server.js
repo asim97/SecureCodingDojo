@@ -113,12 +113,7 @@ app.use('/static', (req, res, next) => {
     if (result) {
        res.send(forbidden_html);
     }
-	var result = req.url.match(/sol.md/);
-    if (result) {
-      res.send(forbidden_html);
-    }
-	var result = req.url.match(/.json/);
-    if (result) {
+    if (req.url.match(/blackBelt/, "i")) {
        res.send(forbidden_html);
     }
   next();
